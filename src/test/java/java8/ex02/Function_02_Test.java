@@ -35,5 +35,4 @@ public class Function_02_Test {
         assert account.getOwner().getPassword().equals("pass");
     }
 
-
 }

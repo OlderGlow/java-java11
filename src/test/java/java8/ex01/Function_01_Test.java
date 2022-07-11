@@ -6,6 +6,10 @@ import org.junit.Test;
 
 import java.util.function.Function;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.junit.Assert.assertThat;
+
 
 /**
  * Exercice 01 - java.util.function.Function
@@ -63,4 +67,42 @@ public class Function_01_Test {
         assert result.getOwner().equals(person);
         assert result.getBalance().equals(1000);
     }
+
+    /** PART 3 - Integer -> Account avec compose **/
+
+    // tag::intToAccountWithCompose[]
+    // TODO Compléter la définition de cette fonction
+    // TODO Utiliser la méthode compose pour réutiliser les fonctions intToPerson et personToAccount
+    private Function<Integer, Account> intToAccountWithCompose = personToAccount.compose(intToPerson);
+    // end::intToAccountWithCompose[]
+
+
+    @Test
+    public void test_intToAccount_with_Compose() throws Exception {
+
+        // TODO invoquer la fonction intToAccountWithCompose avec l'entier 10
+        Account result = intToAccountWithCompose.apply(10);
+
+        assertThat(result.getOwner(), hasProperty("firstname", is("first_10")));
+        assertThat(result, hasProperty("balance", is(1000)));
+    }
+
+    /** PART 4 - Integer -> Account avec andThen **/
+
+    // tag::intToAccountWithAndThen[]
+    // TODO Compléter la définition de cette fonction
+    // TODO Utiliser la méthode andThen pour réutiliser les fonctions intToPerson et personToAccount
+    private Function<Integer, Account> intToAccountWithAndThen = intToPerson.andThen(personToAccount);
+    // end::intToAccountWithAndThen[]
+
+    @Test
+    public void test_intToAccount_with_AndThen() throws Exception {
+
+        // TODO invoquer la fonction intToAccountWithAndThen avec l'entier 11
+        Account result = intToAccountWithAndThen.apply(11);
+
+        assertThat(result.getOwner(), hasProperty("firstname", is("first_11")));
+        assertThat(result, hasProperty("balance", is(1000)));
+    }
 }
+
