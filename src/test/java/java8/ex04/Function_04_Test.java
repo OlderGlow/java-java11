@@ -50,12 +50,12 @@ public class Function_04_Test {
     // tag::predicateand[]
     // TODO compléter la fonction
     // TODO le prédicat vérifie que le nom est "France"
-    Predicate<Person> lastnameIsFrance = null;
+    Predicate<Person> lastnameIsFrance = (Person p) -> p.getLastname().equals("France");
 
 
     // TODO compléter la fonction
     // TODO le prédicat vérifie que le prénom est "Armor"
-    Predicate<Person> firstnameIsArmor = null;
+    Predicate<Person> firstnameIsArmor = (Person p) -> p.getFirstname().equals("Armor");
     // end::predicateand[]
 
     @Test
@@ -65,7 +65,7 @@ public class Function_04_Test {
 
         // TODO invoquer la méthode filter pour que le test soit passant
         // TODO chaîner les prédicats adult, lastnameIsFrance et firstnameIsArmor avec la méthode and
-        List<Person> result = null;
+        List<Person> result = filter(personList, adult.and(lastnameIsFrance.and(firstnameIsArmor)));
 
         assert result.size() == 1;
         assert result.get(0).getFirstname().equals("Armor");
