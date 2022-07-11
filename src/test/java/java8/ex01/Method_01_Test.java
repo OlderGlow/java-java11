@@ -16,6 +16,7 @@ public class Method_01_Test {
     // tag::IDao[]
     interface IDao {
         List<Person> findAll();
+        int sumAge(List<Person> persons);
 
         // TODO créer une méthode int sumAge()
         // TODO Cette méthode retourne le résultat de l'addition des ages des personnes
@@ -30,6 +31,11 @@ public class Method_01_Test {
         public List<Person> findAll() {
             return people;
         }
+
+        @Override
+        public int sumAge(List<Person> persons) {
+            return persons.stream().mapToInt(Person::getAge).sum();
+        }
     }
 
     class DaoB implements IDao {
@@ -40,6 +46,11 @@ public class Method_01_Test {
         public List<Person> findAll() {
             return people;
         }
+
+        @Override
+        public int sumAge(List<Person> persons) {
+            return persons.stream().mapToInt(Person::getAge).sum();
+        }
     }
 
     @Test
@@ -48,7 +59,7 @@ public class Method_01_Test {
         DaoA daoA = new DaoA();
 
         // TODO invoquer la méthode sumAge pour que le test soit passant
-        int result = 0;
+        int result = daoA.sumAge(daoA.findAll());
 
         assert result == 210;
     }
@@ -60,6 +71,7 @@ public class Method_01_Test {
 
         // TODO invoquer la méthode sumAge pour que le test soit passant
         int result = 0;
+        result = daoB.sumAge(daoB.findAll());
 
         assert result == 5050;
 
